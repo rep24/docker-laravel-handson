@@ -4,3 +4,12 @@ services:
     build: ./infra/php #ビルドコンテキスト(docker build実行時の現在の作業ディレクトリ)指定
     volumes: #ホスト側のディレクトリや名前付きボリュームをコンテナ側へマウントしたい時に指定
       - ./src:/data 
+
+  web:
+    image: nginx:1.20-alpine #コンテナを起動させるイメージを指定
+    ports: #nginxへ外からコンテナ内にアクセスさせるために公開用のポートを設定(ホスト側:コンテナ側)
+      - 8080:80
+    volumes: #ホスト側にあるディレクトリ・ファイルをコンテナ内にマウント
+      - ./src:/data
+      - ./infra/nginx/default.conf:/etc/nginx/conf.d/default.conf
+    working_dir: /data
