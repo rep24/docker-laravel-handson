@@ -1,0 +1,6 @@
+version: '3.9' #DockerComposeファイルのバージョンを指定
+services:
+  app: #サービス名にappを定義
+    build: ./infra/php #ビルドコンテキスト(docker build実行時の現在の作業ディレクトリ)指定
+    volumes: #ホスト側のディレクトリや名前付きボリュームをコンテナ側へマウントしたい時に指定
+      - ./src:/data 
